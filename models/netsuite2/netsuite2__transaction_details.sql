@@ -200,7 +200,10 @@ transaction_details as (
     on accounting_periods.accounting_period_id = transactions.accounting_period_id
 
   left join customers 
-    on customers.customer_id = coalesce(transaction_lines.entity_id, transactions.entity_id)
+    on case when lower(transactions.transaction_type) in ('custinvc', 'custcred')
+        then customers.customer_id = transactions.entity_id
+        else customers.customer_id = coalesce(transaction_lines.entity_id, transactions.entity_id)
+          end
   
   left join classes
     on classes.class_id = transaction_lines.class_id
@@ -212,7 +215,10 @@ transaction_details as (
     on locations.location_id = transaction_lines.location_id
 
   left join vendors 
-    on vendors.vendor_id = coalesce(transaction_lines.entity_id, transactions.entity_id)
+    on case when lower(transactions.transaction_type) in ('vendbill', 'vendcred')
+        then vendors.vendor_id = transactions.entity_id
+        else vendors.vendor_id = coalesce(transaction_lines.entity_id, transactions.entity_id)
+          end
 
   {% if var('netsuite2__using_vendor_categories', true) %}
   left join vendor_categories 
