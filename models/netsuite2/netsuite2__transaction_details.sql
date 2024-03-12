@@ -133,6 +133,10 @@ transaction_details as (
     lower(accounts.account_type_id) in ('expense', 'othexpense', 'deferexpense') as is_expense_account,
     lower(accounts.account_type_id) in ('income', 'othincome') as is_income_account,
     case 
+      when lower(transactions.transaction_type) in ('custinvc', 'custcred') then customers__transactions.alt_name
+      else customers__transaction_lines.alt_name
+        end as customer_alt_name,
+    case 
       when lower(transactions.transaction_type) in ('custinvc', 'custcred') then customers__transactions.company_name
       else customers__transaction_lines.company_name
         end as company_name,
@@ -173,6 +177,10 @@ transaction_details as (
       else vendor_categories__transaction_lines.name
         end as vendor_category_name,
     {% endif %}
+    case 
+      when lower(transactions.transaction_type) in ('vendbill', 'vendcred') then vendors__transactions.alt_name
+      else vendors__transaction_lines.alt_name
+        end as vendor_alt_name,
     case 
       when lower(transactions.transaction_type) in ('vendbill', 'vendcred') then vendors__transactions.company_name
       else vendors__transaction_lines.company_name
