@@ -61,7 +61,9 @@ vars:
       - name: "lyra_cash_flow_category"
         alias: "lyra_cash_flow_category"
     classes_pass_through_columns: []
-    departments_pass_through_columns: []
+    departments_pass_through_columns:
+      - name: "lyra_sec_opex_category"
+        alias: "lyra_sec_opex_category"
     transactions_pass_through_columns:
       - name: "lyra_subledger"
         alias: "lyra_subledger"
