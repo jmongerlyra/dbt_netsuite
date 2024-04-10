@@ -60,6 +60,8 @@ vars:
     accounts_pass_through_columns:
       - name: "lyra_cash_flow_category"
         alias: "lyra_cash_flow_category"
+      - name: "lyra_ebitda_category"
+        alias: "lyra_ebitda_category"
     classes_pass_through_columns: []
     departments_pass_through_columns:
       - name: "lyra_sec_opex_category"
@@ -71,8 +73,12 @@ vars:
         alias: "lyra_subledger_id"
       - name: "type_based_document_number"
         alias: "type_based_document_number"
+      - name: "created_by_id"
+        alias: "created_by_id"
       - name: "created_date"
         alias: "created_date"
+      - name: "last_modified_by_id"
+        alias: "last_modified_by_id"
       - name: "last_modified_date"
         alias: "last_modified_date"
     transaction_lines_pass_through_columns: []
