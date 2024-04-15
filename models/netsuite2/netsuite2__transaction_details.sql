@@ -61,6 +61,15 @@ departments as (
     select * 
     from {{ var('netsuite2_departments') }}
 ),
+employees AS (
+    select
+        employee_id,
+        entity_id,
+        first_name,
+        last_name
+    from
+        {{ var('netsuite2_employees') }}
+),
 
 currencies as (
     select * 
@@ -213,7 +222,9 @@ transaction_details as (
     case
       when lower(accounts.account_type_id) in ('income', 'othincome') then -transaction_lines.netamount
       else transaction_lines.netamount
-        end as transaction_line_amount  
+        end as transaction_line_amount,
+    coalesce(employees_created.entity_id || ' ' , '') || coalesce(employees_created.first_name || ' ', '') || coalesce(employees_created.last_name, '') as created_by_name,
+    coalesce(employees_last_modified.entity_id || ' ' , '') || coalesce(employees_last_modified.first_name || ' ', '') || coalesce(employees_last_modified.last_name, '') as last_modified_by_name,
   from transaction_lines
 
   join transactions
@@ -277,6 +288,12 @@ transaction_details as (
 
   left join currencies subsidiaries_currencies
     on subsidiaries_currencies.currency_id = subsidiaries.currency_id
+
+  LEFT JOIN employees employees_created
+    ON transactions.created_by_id = employees_created.employee_id
+
+  LEFT JOIN employees employees_last_modified
+    ON transactions.last_modified_by_id = employees_last_modified.employee_id
     
   where (accounting_periods.fiscal_calendar_id is null
     or accounting_periods.fiscal_calendar_id  = (select fiscal_calendar_id from subsidiaries where parent_id is null))
