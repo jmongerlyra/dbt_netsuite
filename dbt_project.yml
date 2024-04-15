@@ -45,6 +45,7 @@ vars:
     netsuite2_currencies: "{{ ref('stg_netsuite2__currencies') }}"
     netsuite2_customers: "{{ ref('stg_netsuite2__customers') }}"
     netsuite2_departments: "{{ ref('stg_netsuite2__departments') }}"
+    netsuite2_employees: "{{ ref('stg_netsuite2__employees') }}"
     netsuite2_entities: "{{ ref('stg_netsuite2__entities') }}"
     netsuite2_entity_address: "{{ ref('stg_netsuite2__entity_address') }}"
     netsuite2_items: "{{ ref('stg_netsuite2__items') }}"
