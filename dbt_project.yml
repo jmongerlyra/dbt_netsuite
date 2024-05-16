@@ -82,7 +82,7 @@ vars:
       - name: "last_modified_date"
         alias: "last_modified_date"
     transaction_lines_pass_through_columns: []
-    balance_sheet_transaction_detail_columns: [is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, created_date, last_modified_date, customer_alt_name, vendor_alt_name, is_account_leftside]
+    balance_sheet_transaction_detail_columns: [is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, created_date, last_modified_date, customer_alt_name, vendor_alt_name]
     income_statement_transaction_detail_columns: [lyra_subledger, lyra_subledger_id, is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, department_name, created_date, last_modified_date, customer_alt_name, vendor_alt_name]
     netsuite2__multibook_accounting_enabled: true
     netsuite2__using_to_subsidiary: true

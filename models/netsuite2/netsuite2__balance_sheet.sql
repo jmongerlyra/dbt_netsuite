@@ -124,7 +124,11 @@ balance_sheet as (
         case
         when not accounts.is_balancesheet then (select accounts.account_number from accounts where lower(accounts.special_account_type_id) = 'retearnings' limit 1)
         else accounts.account_number
-            end as account_number
+            end as account_number,
+        case
+        when not accounts.is_balancesheet then false
+        else accounts.is_leftside
+            end as is_account_leftside
         
         --The below script allows for accounts table pass through columns.
         {{ fivetran_utils.persist_pass_through_columns('accounts_pass_through_columns', identifier='accounts') }},
@@ -239,6 +243,7 @@ balance_sheet as (
         'cumulative_translation_adjustment' as account_type_id,
         null as account_id,
         (select accounts.account_number from accounts where lower(accounts.special_account_type_id) = 'cumultransadj' limit 1) as account_number,
+        false as is_account_leftside,
 
         {% if var('accounts_pass_through_columns') %}
         {% for field in var('accounts_pass_through_columns') %}
