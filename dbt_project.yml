@@ -62,10 +62,15 @@ vars:
         alias: "lyra_cash_flow_category"
       - name: "lyra_ebitda_category"
         alias: "lyra_ebitda_category"
+      - name: "lyra_transfer_pricing_method"
+        alias: "lyra_transfer_pricing_method"
     classes_pass_through_columns: []
     departments_pass_through_columns:
       - name: "lyra_sec_opex_category"
         alias: "lyra_sec_opex_category"
+    subsidiaries_pass_through_columns:
+      - name: "lyra_transfer_pricing_markup"
+        alias: "lyra_transfer_pricing_markup"
     transactions_pass_through_columns:
       - name: "lyra_subledger"
         alias: "lyra_subledger"
@@ -81,7 +86,15 @@ vars:
         alias: "last_modified_by_id"
       - name: "last_modified_date"
         alias: "last_modified_date"
-    transaction_lines_pass_through_columns: []
+    transaction_lines_pass_through_columns:
+      - name: "amortization_start_date"
+        alias: "amortization_start_date"
+      - name: "amortization_end_date"
+        alias: "amortization_end_date"
+      - name: "lyra_inv_start_date"
+        alias: "lyra_inv_start_date"
+      - name: "lyra_inv_end_date"
+        alias: "lyra_inv_end_date"
     balance_sheet_transaction_detail_columns: [is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, created_date, last_modified_date, customer_alt_name, vendor_alt_name]
     income_statement_transaction_detail_columns: [lyra_subledger, lyra_subledger_id, is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, department_name, created_date, last_modified_date, customer_alt_name, vendor_alt_name]
     netsuite2__multibook_accounting_enabled: true
