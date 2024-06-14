@@ -227,7 +227,11 @@ transaction_details as (
     subsidiaries.subsidiary_id,
     subsidiaries.full_name as subsidiary_full_name,
     subsidiaries.name as subsidiary_name,
-    subsidiaries_currencies.symbol as subsidiary_currency_symbol,
+    subsidiaries_currencies.symbol as subsidiary_currency_symbol
+    
+    --The below script allows for subsidiaries table pass through columns.
+    {{ fivetran_utils.persist_pass_through_columns('subsidiaries_pass_through_columns', identifier='subsidiaries') }},
+
     case
       when lower(accounts.account_type_id) in ('income', 'othincome') then -transactions_with_converted_amounts.converted_amount_using_transaction_accounting_period
       else transactions_with_converted_amounts.converted_amount_using_transaction_accounting_period
