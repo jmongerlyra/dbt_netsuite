@@ -78,6 +78,8 @@ vars:
         alias: "lyra_subledger_id"
       - name: "type_based_document_number"
         alias: "type_based_document_number"
+      - name: "tran_id"
+        alias: "tran_id"
       - name: "created_by_id"
         alias: "created_by_id"
       - name: "created_date"
@@ -96,6 +98,6 @@ vars:
       - name: "lyra_inv_end_date"
         alias: "lyra_inv_end_date"
     balance_sheet_transaction_detail_columns: [is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, created_date, last_modified_date, customer_alt_name, vendor_alt_name]
-    income_statement_transaction_detail_columns: [lyra_subledger, lyra_subledger_id, is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, department_name, created_date, last_modified_date, customer_alt_name, vendor_alt_name]
+    income_statement_transaction_detail_columns: [lyra_subledger, lyra_subledger_id, is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, department_name, created_date, last_modified_date, customer_alt_name, vendor_alt_name, transaction_memo, transaction_type, tran_id, is_reversal, reversal_transaction_id, reversal_date, amortization_start_date, amortization_end_date, lyra_inv_start_date, lyra_inv_end_date, transaction_date]
     netsuite2__multibook_accounting_enabled: true
     netsuite2__using_to_subsidiary: true

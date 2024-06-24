@@ -123,7 +123,11 @@ transaction_details as (
     transactions._fivetran_synced_date,
     transactions.transaction_number,
     coalesce(transaction_lines.entity_id, transactions.entity_id) as entity_id,
-    transactions.is_intercompany_adjustment as is_transaction_intercompany_adjustment
+    transactions.is_intercompany_adjustment as is_transaction_intercompany_adjustment,
+    transactions.is_reversal,
+    transactions.reversal_transaction_id,
+    transactions.reversal_date,
+    transactions.is_reversal_defer
 
     --The below script allows for transactions table pass through columns.
     {{ fivetran_utils.persist_pass_through_columns('transactions_pass_through_columns', identifier='transactions') }}
