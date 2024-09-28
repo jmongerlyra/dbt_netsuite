@@ -127,6 +127,10 @@ balance_sheet as (
             end as account_number,
         case
         when not accounts.is_balancesheet then false
+        else accounts.is_eliminate
+            end as is_account_intercompany,
+        case
+        when not accounts.is_balancesheet then false
         else accounts.is_leftside
             end as is_account_leftside
         
@@ -243,6 +247,7 @@ balance_sheet as (
         'cumulative_translation_adjustment' as account_type_id,
         null as account_id,
         (select accounts.account_number from accounts where lower(accounts.special_account_type_id) = 'cumultransadj' limit 1) as account_number,
+        false as is_account_intercompany,
         false as is_account_leftside,
 
         {% if var('accounts_pass_through_columns') %}
