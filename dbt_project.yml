@@ -69,6 +69,8 @@ vars:
       - name: "lyra_sec_opex_category"
         alias: "lyra_sec_opex_category"
     subsidiaries_pass_through_columns:
+      - name: "lyra_reporting_group"
+        alias: "lyra_reporting_group"
       - name: "lyra_transfer_pricing_markup"
         alias: "lyra_transfer_pricing_markup"
       - name: "lyra_transfer_pricing_coa_method"
