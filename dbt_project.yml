@@ -57,12 +57,52 @@ vars:
     netsuite2_transactions: "{{ ref('stg_netsuite2__transactions') }}"
     netsuite2_vendor_categories: "{{ ref('stg_netsuite2__vendor_categories') }}"
     netsuite2_vendors: "{{ ref('stg_netsuite2__vendors') }}"
-    accounts_pass_through_columns: []
+    accounts_pass_through_columns:
+      - name: "lyra_cash_flow_category"
+        alias: "lyra_cash_flow_category"
+      - name: "lyra_ebitda_category"
+        alias: "lyra_ebitda_category"
+      - name: "lyra_transfer_pricing_method"
+        alias: "lyra_transfer_pricing_method"
     classes_pass_through_columns: []
-    departments_pass_through_columns: []
+    departments_pass_through_columns:
+      - name: "lyra_sec_opex_category"
+        alias: "lyra_sec_opex_category"
     locations_pass_through_columns: []
-    subsidiaries_pass_through_columns: []
-    transactions_pass_through_columns: []
-    transaction_lines_pass_through_columns: []
-    balance_sheet_transaction_detail_columns: []
-    income_statement_transaction_detail_columns: []
+    subsidiaries_pass_through_columns:
+      - name: "lyra_transfer_pricing_markup"
+        alias: "lyra_transfer_pricing_markup"
+      - name: "lyra_transfer_pricing_coa_method"
+        alias: "lyra_transfer_pricing_coa_method"
+      - name: "lyra_reporting_group"
+        alias: "lyra_reporting_group"
+    transactions_pass_through_columns:
+      - name: "lyra_subledger"
+        alias: "lyra_subledger"
+      - name: "lyra_subledger_id"
+        alias: "lyra_subledger_id"
+      - name: "type_based_document_number"
+        alias: "type_based_document_number"
+      - name: "tran_id"
+        alias: "tran_id"
+      - name: "created_by_id"
+        alias: "created_by_id"
+      - name: "created_date"
+        alias: "created_date"
+      - name: "last_modified_by_id"
+        alias: "last_modified_by_id"
+      - name: "last_modified_date"
+        alias: "last_modified_date"
+    transaction_lines_pass_through_columns:
+      - name: "amortization_start_date"
+        alias: "amortization_start_date"
+      - name: "amortization_end_date"
+        alias: "amortization_end_date"
+      - name: "lyra_inv_start_date"
+        alias: "lyra_inv_start_date"
+      - name: "lyra_inv_end_date"
+        alias: "lyra_inv_end_date"
+    balance_sheet_transaction_detail_columns: [is_eliminate, currency_symbol, type_based_document_number, created_date, last_modified_date, customer_alt_name, vendor_alt_name, lyra_reporting_group]
+    income_statement_transaction_detail_columns: [lyra_subledger, lyra_subledger_id, is_account_intercompany, is_eliminate, currency_symbol, type_based_document_number, department_name, created_date, last_modified_date, customer_alt_name, vendor_alt_name, transaction_memo, transaction_type, tran_id, is_reversal, reversal_transaction_id, reversal_date, amortization_start_date, amortization_end_date, lyra_inv_start_date, lyra_inv_end_date, transaction_date, lyra_transfer_pricing_markup, lyra_transfer_pricing_coa_method, lyra_reporting_group]
+    netsuite2__multibook_accounting_enabled: true
+    netsuite2__using_to_subsidiary: true
