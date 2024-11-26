@@ -1,6 +1,6 @@
 config-version: 2
 name: 'netsuite'
-version: '0.14.0'
+version: '0.15.0'
 require-dbt-version: [">=1.3.0", "<2.0.0"]
 
 models:
@@ -68,6 +68,7 @@ vars:
     departments_pass_through_columns:
       - name: "lyra_sec_opex_category"
         alias: "lyra_sec_opex_category"
+    locations_pass_through_columns: []
     subsidiaries_pass_through_columns:
       - name: "lyra_transfer_pricing_markup"
         alias: "lyra_transfer_pricing_markup"
