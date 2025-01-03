@@ -71,6 +71,7 @@ balance_sheet as (
 
         reporting_accounting_periods.accounting_period_id as accounting_period_id,
         reporting_accounting_periods.ending_at as accounting_period_ending,
+        reporting_accounting_periods.full_name as accounting_period_full_name,
         reporting_accounting_periods.name as accounting_period_name,
         reporting_accounting_periods.is_adjustment as is_accounting_period_adjustment,
         reporting_accounting_periods.is_closed as is_accounting_period_closed,
@@ -82,6 +83,13 @@ balance_sheet as (
         when not accounts.is_balancesheet then 'Retained Earnings'
         else accounts.name
             end as account_name,
+        case
+        when (not accounts.is_balancesheet 
+                and {{ dbt.date_trunc('year', 'reporting_accounting_periods.starting_at') }} = {{ dbt.date_trunc('year', 'transaction_accounting_periods.starting_at') }} 
+                and reporting_accounting_periods.fiscal_calendar_id = transaction_accounting_periods.fiscal_calendar_id) then 'Net Income'
+        when not accounts.is_balancesheet then 'Retained Earnings'
+        else accounts.display_full_name
+            end as account_display_full_name,
         case
         when (not accounts.is_balancesheet 
                 and {{ dbt.date_trunc('year', 'reporting_accounting_periods.starting_at') }} = {{ dbt.date_trunc('year', 'transaction_accounting_periods.starting_at') }} 
@@ -235,11 +243,13 @@ balance_sheet as (
         
         reporting_accounting_periods.accounting_period_id as accounting_period_id,
         reporting_accounting_periods.ending_at as accounting_period_ending,
+        reporting_accounting_periods.full_name as accounting_period_full_name,
         reporting_accounting_periods.name as accounting_period_name,
         reporting_accounting_periods.is_adjustment as is_accounting_period_adjustment,
         reporting_accounting_periods.is_closed as is_accounting_period_closed,
         'Equity' as account_category,
         'Cumulative Translation Adjustment' as account_name,
+        'Cumulative Translation Adjustment' as account_display_full_name,
         'Cumulative Translation Adjustment' as account_display_name,
         'Cumulative Translation Adjustment' as account_type_name,
         'cumulative_translation_adjustment' as account_type_id,
