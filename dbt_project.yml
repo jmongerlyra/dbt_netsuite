@@ -86,6 +86,8 @@ vars:
         alias: "type_based_document_number"
       - name: "tran_id"
         alias: "tran_id"
+      - name: "paired_intercompany_transaction"
+        alias: "paired_intercompany_transaction"
       - name: "created_by_id"
         alias: "created_by_id"
       - name: "created_date"
