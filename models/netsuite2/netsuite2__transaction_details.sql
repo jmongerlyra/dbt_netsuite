@@ -63,6 +63,11 @@ locations as (
     from {{ ref('int_netsuite2__locations') }}
 ),
 
+nexuses as (
+    select *
+    from {{ var('netsuite2_nexuses') }}
+),
+
 vendors as (
     select * 
     from {{ var('netsuite2_vendors') }}
@@ -115,6 +120,15 @@ transaction_details as (
     transactions.transaction_date,
     transactions.due_date_at as transaction_due_date,
     transactions.transaction_type as transaction_type,
+    transactions.nexus_id,
+    nexuses.country as nexus_country,
+    nexuses.state as nexus_state,
+    nexuses.tax_agency_id,
+    vendors__nexuses.alt_name as tax_agency_alt_name,
+    transactions.is_nexus_override,
+    transactions.is_tax_details_override,
+    transactions.tax_point_date,
+    transactions.tax_point_date_override,
     transaction_lines.transaction_line_fivetran_synced_date,
     transactions.transaction_number,
     coalesce(transaction_lines.entity_id, transactions.entity_id) as entity_id,
@@ -133,11 +147,13 @@ transaction_details as (
     {{ netsuite.persist_pass_through_columns(var('transaction_lines_pass_through_columns', []), identifier='transaction_lines') }},
 
     accounting_periods.ending_at as accounting_period_ending,
+    accounting_periods.full_name as accounting_period_full_name,
     accounting_periods.name as accounting_period_name,
     accounting_periods.accounting_period_id as accounting_period_id,
     accounting_periods.is_adjustment as is_accounting_period_adjustment,
     accounting_periods.is_closed as is_accounting_period_closed,
     accounts.name as account_name,
+    accounts.display_full_name as account_display_full_name,
     accounts.display_name as account_display_name,
     accounts.type_name as account_type_name,
     accounts.account_type_id,
@@ -152,7 +168,6 @@ transaction_details as (
     lower(accounts.account_type_id) = 'acctrec' as is_accounts_receivable,
     accounts.is_eliminate as is_account_intercompany,
     transaction_lines.is_eliminate,
-    coalesce(parent_account.account_id, accounts.account_id) as parent_account_id,
     coalesce(parent_account.name, accounts.name) as parent_account_name,
     lower(accounts.account_type_id) in ('expense', 'othexpense', 'deferexpense') as is_expense_account,
     lower(accounts.account_type_id) in ('income', 'othincome') as is_income_account,
@@ -300,6 +315,12 @@ transaction_details as (
 
   left join locations 
     on locations.location_id = transaction_lines.location_id
+
+  left join nexuses
+    on nexuses.nexus_id = transactions.nexus_id
+
+  left join vendors vendors__nexuses
+    on vendors__nexuses.vendor_id = nexuses.tax_agency_id
 
   left join vendors vendors__transactions
     on vendors__transactions.vendor_id = transactions.entity_id
