@@ -139,10 +139,12 @@ transaction_details as (
     transactions.is_reversal_defer
 
     --The below script allows for transactions table pass through columns.
-    {{ fivetran_utils.persist_pass_through_columns('transactions_pass_through_columns', identifier='transactions') }}
+    
+    {{ netsuite.persist_pass_through_columns(var('transactions_pass_through_columns', []), identifier='transactions') }}
 
     --The below script allows for transaction lines table pass through columns.
-    {{ fivetran_utils.persist_pass_through_columns('transaction_lines_pass_through_columns', identifier='transaction_lines') }},
+    
+    {{ netsuite.persist_pass_through_columns(var('transaction_lines_pass_through_columns', []), identifier='transaction_lines') }},
 
     accounting_periods.ending_at as accounting_period_ending,
     accounting_periods.full_name as accounting_period_full_name,
@@ -159,7 +161,7 @@ transaction_details as (
     accounts.account_number
 
     --The below script allows for accounts table pass through columns.
-    {{ fivetran_utils.persist_pass_through_columns('accounts_pass_through_columns', identifier='accounts') }},
+    {{ netsuite.persist_pass_through_columns(var('accounts_pass_through_columns', []), identifier='accounts') }},
 
     accounts.is_leftside as is_account_leftside,
     lower(accounts.account_type_id) = 'acctpay' as is_accounts_payable,
@@ -217,7 +219,7 @@ transaction_details as (
     locations.country as location_country
 
     -- The below script allows for locations table pass through columns.
-    {{ fivetran_utils.persist_pass_through_columns('locations_pass_through_columns', identifier='locations') }},
+    {{ netsuite.persist_pass_through_columns(var('locations_pass_through_columns', []), identifier='locations') }},
 
     {% if var('netsuite2__using_vendor_categories', true) %}
     case 
@@ -254,7 +256,7 @@ transaction_details as (
     departments.name as department_name
 
     --The below script allows for departments table pass through columns.
-    {{ fivetran_utils.persist_pass_through_columns('departments_pass_through_columns', identifier='departments') }},
+    {{ netsuite.persist_pass_through_columns(var('departments_pass_through_columns', []), identifier='departments') }},
 
     subsidiaries.subsidiary_id,
     subsidiaries.full_name as subsidiary_full_name,
@@ -262,7 +264,7 @@ transaction_details as (
     subsidiaries_currencies.symbol as subsidiary_currency_symbol
 
     --The below script allows for subsidiaries table pass through columns.
-    {{ fivetran_utils.persist_pass_through_columns('subsidiaries_pass_through_columns', identifier='subsidiaries') }},
+    {{ netsuite.persist_pass_through_columns(var('subsidiaries_pass_through_columns', []), identifier='subsidiaries') }},
 
     case
       when lower(accounts.account_type_id) in ('income', 'othincome') then -transactions_with_converted_amounts.converted_amount_using_transaction_accounting_period
