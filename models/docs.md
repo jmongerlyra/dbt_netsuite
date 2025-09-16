@@ -12,6 +12,8 @@
 
 {% docs customers_table %} Table detailing all customer information. {% enddocs %}
 
+{% docs customer_subsidiary_relationship_table %} A table detailing all customer subsidiary relationships. {% enddocs %}
+
 {% docs currencies_table %} Table detailing all currency information. {% enddocs %}
 
 {% docs departments_table %} Table detailing all departments set up in Netsuite. {% enddocs %}
@@ -24,6 +26,8 @@
 
 {% docs locations_table %} Table detailing all locations, including store, warehouse and office locations. {% enddocs %}
 
+{% docs nexuses_table %} Table detailing all tax nexuses. {% enddocs %}
+
 {% docs subsidiaries_table %} Table detailing all subsidiaries. {% enddocs %}
 
 {% docs transaction_lines_table %} A table detailing all transaction lines for all transactions. {% enddocs %}
@@ -33,6 +37,8 @@
 {% docs vendor_types_table %} A table detailing all the various types of vendors. {% enddocs %}
 
 {% docs vendor_table %} A table detailing all vendor information. {% enddocs %}
+
+{% docs vendor_subsidiary_relationship_table %} A table detailing all vendor subsidiary relationships. {% enddocs %}
 
 {% docs entities_table %} Table detailing all entities in Netsuite. {% enddocs %}
 
@@ -94,6 +100,8 @@
 {% docs class_id %} The unique identifier of the class used for the record. {% enddocs %}
 
 {% docs item_id %} The unique identifier of the item used within the record. {% enddocs %}
+
+{% docs nexus_id %} The unique identifier of the nexus used within the record. {% enddocs %}
 
 {% docs fiscal_calendar_id %} Reference to the fiscal calendar used for the record. {% enddocs %}
 

@@ -65,7 +65,7 @@ locations as (
 
 nexuses as (
     select *
-    from {{ var('netsuite2_nexuses') }}
+    from {{ ref('stg_netsuite2__nexuses') }}
 ),
 
 vendors as (
