@@ -147,13 +147,11 @@ transaction_details as (
     {{ netsuite.persist_pass_through_columns(var('transaction_lines_pass_through_columns', []), identifier='transaction_lines') }},
 
     accounting_periods.ending_at as accounting_period_ending,
-    accounting_periods.full_name as accounting_period_full_name,
     accounting_periods.name as accounting_period_name,
     accounting_periods.accounting_period_id as accounting_period_id,
     accounting_periods.is_adjustment as is_accounting_period_adjustment,
     accounting_periods.is_closed as is_accounting_period_closed,
     accounts.name as account_name,
-    accounts.display_full_name as account_display_full_name,
     accounts.display_name as account_display_name,
     accounts.type_name as account_type_name,
     accounts.account_type_id,
